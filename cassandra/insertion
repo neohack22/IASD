@@ -1,0 +1,146 @@
+-- (ii) indiquer à quelles requêtes (
+--    rappelées ci-dessous) votre modèle permet de répondre et donner le 
+-- code de vos requêtes,
+
+-- a. Qui (
+--    en donnant son nom et son prénom) a une musique d’un artiste nommé 
+-- x (ex. 'Pomme') dans sa liste de musiques ?
+
+-- Exemple d'insertion
+
+INSERT INTO Utilisateur(Nom,Prenom,DateNaissance) VALUES
+('COMPUTING','Claude','12/04/1991');
+INSERT INTO Utilisateur(Nom,Prenom,DateNaissance) VALUES
+('ZARELA','Maude','01/25/1998');
+INSERT INTO Artiste(NomArtiste) VALUES ('Queen');
+INSERT INTO Artiste(NomArtiste) VALUES ('Pomme');
+INSERT INTO Artiste(NomArtiste) VALUES ('Jul');
+INSERT INTO Artiste(NomArtiste) VALUES ('Amy Winehouse');
+INSERT INTO Musique(Titre,AID) VALUES('Ca sent bon',3);
+INSERT INTO Musique(Titre,AID) VALUES('Les oiseaux',2);
+INSERT INTO Musique(Titre,AID) VALUES('Bohemian Rhapsody',1);
+INSERT INTO Musique(Titre,AID) VALUES('Somebody to love',1);
+INSERT INTO Musique(Titre,AID) VALUES('Rehab',4);
+INSERT INTO Playlist(NOM,UID) VALUES('MaListe',2);
+INSERT INTO Playlist(NOM,UID) VALUES('MaListe',1);
+INSERT INTO Contenu(PID, MID) VALUES (1,1),(1,2),(1,3),(2,3),(2,4);
+
+INSERT INTO Contenu JSON ' {
+    "PID":{
+        "PID":1, "nom":"MaListe", "UID":{
+            "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
+            "Date":"1998-01-25"}}, "MID":{
+                "MID":1, "Titre":"Ca sent bon", "Artiste":{
+                    "AID":3, "NomArtiste":"Jul"}}
+                }
+            ';
+
+INSERT INTO Contenu JSON ' {
+    "PID":{
+        "PID":1, "nom":"MaListe", "UID":{
+            "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
+            "Date":"1998-01-25"}}, "MID":{
+                "MID":2, "Titre":"Les oiseaux", "Artiste":{
+                    "AID":2, "NomArtiste":"Pomme"}}
+                }
+            ';
+
+INSERT INTO Contenu JSON ' {
+    "PID":{
+        "PID":1, "nom":"MaListe", "UID":{
+            "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
+            "Date":"1998-01-25"}}, "MID":{
+                "MID":3, "Titre":"Bohemian Rhapsody", "Artiste":{
+                    "AID":1, "NomArtiste":"Queen"}}
+                }
+            ';
+
+INSERT INTO Contenu JSON ' {
+    "PID":{
+        "PID":2, "nom":"MaListe", "UID":{
+            "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
+            "Date":"1991-12-04"}}, "MID":{
+                "MID":3, "Titre":"Bohemian Rhapsody", "Artiste":{
+                    "AID":1, "NomArtiste":"Queen"}}
+                }
+            ';
+
+
+INSERT INTO Contenu JSON ' {
+    "PID":{
+        "PID":2, "nom":"MaListe", "UID":{
+            "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
+            "Date":"1991-12-04"}}, "MID":{
+                "MID":4, "Titre":"Somebody to love", "Artiste":{
+                    "AID":1, "NomArtiste":"Queen"}}
+                }
+            ';
+
+            
+INSERT INTO Musique JSON ' {
+    "MID":1, "titre":"Ca sent bon", "Artiste":{
+        "AID":3, "NomArtiste":"Jul"}, "PID":[{
+            "PID":1, "nom":"MaListe", "UID":{
+                "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
+                "Date":"1998-01-25"}
+        }]}';
+        
+            
+INSERT INTO Musique JSON ' {
+    "MID":2, "titre":"Les oiseaux", "Artiste":{
+        "AID":2, "NomArtiste":"Pomme"}, "PID":[{
+            "PID":1, "nom":"MaListe", "UID":{
+                "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
+                "Date":"1998-01-25"}
+        }]}';
+
+            
+INSERT INTO Musique JSON ' {
+    "MID":3, "titre":"Bohemian Rhapsody", "Artiste":{
+        "AID":1, "NomArtiste":"Queen"}, "PID":[{
+            "PID":1, "nom":"MaListe", "UID":{
+                "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
+                "Date":"1998-01-25"}}, {
+                    "PID":2, "nom":"MaListe", "UID":{
+                        "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
+                        "Date":"1991-12-04"}
+                }]
+        }';
+
+            
+INSERT INTO Musique JSON ' {
+    "MID":4, "titre":"Somebody to love", "Artiste":{
+        "AID":1, "NomArtiste":"Queen"}, "PID":[{
+            "PID":2, "nom":"MaListe", "UID":{
+                "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
+                "Date":"1991-12-04"}
+        }]}';
+
+            
+INSERT INTO Musique JSON ' {
+    "MID":5, "titre":"Rehab", "Artiste":{
+        "AID":4, "NomArtiste":"Amy Winehouse"}}
+
+INSERT INTO Musique(Titre,AID) VALUES('Ca sent bon',3);
+INSERT INTO Musique(Titre,AID) VALUES('Les oiseaux',2);
+INSERT INTO Musique(Titre,AID) VALUES('Bohemian Rhapsody',1);
+INSERT INTO Musique(Titre,AID) VALUES('Somebody to love',1);
+INSERT INTO Musique(Titre,AID) VALUES('Rehab',4);
+
+
+INSERT INTO Utilisateur(Nom,Prenom,DateNaissance) VALUES
+('COMPUTING','Claude','12/04/1991');
+INSERT INTO Utilisateur(Nom,Prenom,DateNaissance) VALUES
+('ZARELA','Maude','01/25/1998');
+INSERT INTO Artiste(NomArtiste) VALUES ('Queen');
+INSERT INTO Artiste(NomArtiste) VALUES ('Pomme');
+INSERT INTO Artiste(NomArtiste) VALUES ('Jul');
+INSERT INTO Artiste(NomArtiste) VALUES ('Amy Winehouse');
+INSERT INTO Musique(Titre,AID) VALUES('Ca sent bon',3);
+INSERT INTO Musique(Titre,AID) VALUES('Les oiseaux',2);
+INSERT INTO Musique(Titre,AID) VALUES('Bohemian Rhapsody',1);
+INSERT INTO Musique(Titre,AID) VALUES('Somebody to love',1);
+INSERT INTO Musique(Titre,AID) VALUES('Rehab',4);
+INSERT INTO Playlist(NOM,UID) VALUES('MaListe',2);
+INSERT INTO Playlist(NOM,UID) VALUES('MaListe',1);
+INSERT INTO Contenu(PID, MID) VALUES (1,1),(1,2),(1,3),(2,3),(2,4);
