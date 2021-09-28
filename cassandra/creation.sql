@@ -32,7 +32,7 @@ create type GestionMusique.Contenu (
 
 CREATE TABLE GestionMusique.Recommandation (
     UID set< frozen<Utilisateurs>>, MID set< frozen<Musique>>, 
-    primary key((UID), (MID))
+    primary key((UID), MID)
 );
 
 CREATE TABLE GestionMusique.Musique (
