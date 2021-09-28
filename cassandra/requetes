@@ -1,0 +1,35 @@
+-- a. Qui (en donnant son nom et son prénom) a une musique d’un artiste 
+-- nommé x (ex. 'Pomme') dans sa liste de musiques ?<br><br>
+
+SELECT nom, prenom FROM GestionMusique.Utilisateurs
+WHERE nomartiste= 'x' ALLOW FILTERING;
+
+-- b. Qui (en donnant son nom et son prénom) a une musique de d’un 
+-- artiste nommé x (ex. ‘Queen’) OU d’un artiste nommé y (ex. ‘Pomme’)
+-- dans sa liste de musiques ?<br><br>
+
+SELECT DISTINCT PID.UID.nom, PID.UID.prenom FROM contenu
+WHERE PID.MID.Artiste.NomArtiste IN ('x', 'y') ALLOW FILTERING;
+
+-- c. Qui (en donnant son nom et son prénom) a une musique d’un artiste 
+-- nommé x (ex. ‘Queen’) ET d’un artiste nommé y (ex. ‘Pomme’) dans sa 
+-- liste de musiques ?<br><br>
+
+SELECT DISTINCT PID.UID.nom, PID.UID.prenom FROM contenu
+WHERE PID.MID.Artiste.NomArtiste = 'x' 
+AND PID.MID.Artiste.NomArtiste =  'y' ALLOW FILTERING;
+
+-- d. Quelle musique (en donnant son titre) apparait dans au moins 2 
+-- listes de musiques différentes ?<br><br>
+SELECT titre FROM musique
+GROUP BY titre WHERE COUNT(playlist) > 2 ALLOW FILTERING
+
+-- e. Quelle musique (en donnant le titre) n'apparait dans aucune liste de musiques ?<br><br>
+
+-- f. Quelle musique (en donnant le titre) apparait dans toutes les listes de musiques de la base de données ?<br><br>
+
+-- g. Qui (en donnant son nom et son prénom) est le plus jeune utilisateur de la base ?<br><br>
+
+-- h. Dans combien de listes de musiques apparait chaque musique (en donnant le titre) ?<br><br>
+
+-- i. Dans combien de listes de musiques apparaît chaque artiste, en donnant le nom d'artiste, et en indiquant zéro, quand l'artiste n'apparait dans aucune liste de musiques ?<br><br>
