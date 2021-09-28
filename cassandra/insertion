@@ -26,40 +26,40 @@ INSERT INTO Playlist(NOM,UID) VALUES('MaListe',1);
 INSERT INTO Contenu(PID, MID) VALUES (1,1),(1,2),(1,3),(2,3),(2,4);
 
 INSERT INTO Contenu JSON ' {
-    "PID":{
-        "PID":1, "nom":"MaListe", "UID":{
+    "Playlist":{
+        "PID":1, "nom":"MaListe", "Utilisateurs":{
             "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
-            "Date":"1998-01-25"}}, "MID":{
+            "Date":"1998-01-25"}}, "Musique":{
                 "MID":1, "Titre":"Ca sent bon", "Artiste":{
                     "AID":3, "NomArtiste":"Jul"}}
                 }
             ';
 
 INSERT INTO Contenu JSON ' {
-    "PID":{
-        "PID":1, "nom":"MaListe", "UID":{
+    "Playlist":{
+        "PID":1, "nom":"MaListe", "Utilisateurs":{
             "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
-            "Date":"1998-01-25"}}, "MID":{
+            "Date":"1998-01-25"}}, "Musique":{
                 "MID":2, "Titre":"Les oiseaux", "Artiste":{
                     "AID":2, "NomArtiste":"Pomme"}}
                 }
             ';
 
 INSERT INTO Contenu JSON ' {
-    "PID":{
-        "PID":1, "nom":"MaListe", "UID":{
+    "Playlist":{
+        "PID":1, "nom":"MaListe", "Utilisateurs":{
             "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
-            "Date":"1998-01-25"}}, "MID":{
+            "Date":"1998-01-25"}}, "Musique":{
                 "MID":3, "Titre":"Bohemian Rhapsody", "Artiste":{
                     "AID":1, "NomArtiste":"Queen"}}
                 }
             ';
 
 INSERT INTO Contenu JSON ' {
-    "PID":{
-        "PID":2, "nom":"MaListe", "UID":{
+    "Playlist":{
+        "PID":2, "nom":"MaListe", "Utilisateurs":{
             "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
-            "Date":"1991-12-04"}}, "MID":{
+            "Date":"1991-12-04"}}, "Musique":{
                 "MID":3, "Titre":"Bohemian Rhapsody", "Artiste":{
                     "AID":1, "NomArtiste":"Queen"}}
                 }
@@ -67,10 +67,10 @@ INSERT INTO Contenu JSON ' {
 
 
 INSERT INTO Contenu JSON ' {
-    "PID":{
-        "PID":2, "nom":"MaListe", "UID":{
+    "Playlist":{
+        "PID":2, "nom":"MaListe", "Utilisateurs":{
             "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
-            "Date":"1991-12-04"}}, "MID":{
+            "Date":"1991-12-04"}}, "Musique":{
                 "MID":4, "Titre":"Somebody to love", "Artiste":{
                     "AID":1, "NomArtiste":"Queen"}}
                 }
@@ -79,8 +79,8 @@ INSERT INTO Contenu JSON ' {
             
 INSERT INTO Musique JSON ' {
     "MID":1, "titre":"Ca sent bon", "Artiste":{
-        "AID":3, "NomArtiste":"Jul"}, "PID":[{
-            "PID":1, "nom":"MaListe", "UID":{
+        "AID":3, "NomArtiste":"Jul"}, "Playlist":[{
+            "PID":1, "nom":"MaListe", "Utilisateurs":{
                 "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
                 "Date":"1998-01-25"}
         }]}';
@@ -88,8 +88,8 @@ INSERT INTO Musique JSON ' {
             
 INSERT INTO Musique JSON ' {
     "MID":2, "titre":"Les oiseaux", "Artiste":{
-        "AID":2, "NomArtiste":"Pomme"}, "PID":[{
-            "PID":1, "nom":"MaListe", "UID":{
+        "AID":2, "NomArtiste":"Pomme"}, "Playlist":[{
+            "PID":1, "nom":"MaListe", "Utilisateurs":{
                 "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
                 "Date":"1998-01-25"}
         }]}';
@@ -97,11 +97,11 @@ INSERT INTO Musique JSON ' {
             
 INSERT INTO Musique JSON ' {
     "MID":3, "titre":"Bohemian Rhapsody", "Artiste":{
-        "AID":1, "NomArtiste":"Queen"}, "PID":[{
-            "PID":1, "nom":"MaListe", "UID":{
+        "AID":1, "NomArtiste":"Queen"}, "Playlist":[{
+            "PID":1, "nom":"MaListe", "Utilisateurs":{
                 "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
                 "Date":"1998-01-25"}}, {
-                    "PID":2, "nom":"MaListe", "UID":{
+                    "PID":2, "nom":"MaListe", "Utilisateurs":{
                         "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
                         "Date":"1991-12-04"}
                 }]
@@ -110,8 +110,8 @@ INSERT INTO Musique JSON ' {
             
 INSERT INTO Musique JSON ' {
     "MID":4, "titre":"Somebody to love", "Artiste":{
-        "AID":1, "NomArtiste":"Queen"}, "PID":[{
-            "PID":2, "nom":"MaListe", "UID":{
+        "AID":1, "NomArtiste":"Queen"}, "Playlist":[{
+            "PID":2, "nom":"MaListe", "Utilisateurs":{
                 "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
                 "Date":"1991-12-04"}
         }]}';
