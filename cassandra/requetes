@@ -24,12 +24,36 @@ AND PID.MID.Artiste.NomArtiste =  'y' ALLOW FILTERING;
 SELECT titre FROM musique
 GROUP BY titre WHERE COUNT(playlist) > 2 ALLOW FILTERING
 
--- e. Quelle musique (en donnant le titre) n'apparait dans aucune liste de musiques ?<br><br>
+-- e. Quelle musique (en donnant le titre) n'apparait dans aucune liste 
+-- de musiques ?<br><br>
+SELECT titre FROM musique
+WHERE Playlist = ''
 
--- f. Quelle musique (en donnant le titre) apparait dans toutes les listes de musiques de la base de données ?<br><br>
+-- f. Quelle musique (en donnant le titre) apparait dans toutes les 
+-- listes de musiques de la base de données ?<br><br>
+SELECT titre FROM Musique
+WHERE (
+    COUNT(
+        SELECT DISTINCT Playlist FROM Musique
+    ) = COUNT(
+        SELECT DISTINCT Playlist.PID
+    )
+)
 
--- g. Qui (en donnant son nom et son prénom) est le plus jeune utilisateur de la base ?<br><br>
+-- g. Qui (en donnant son nom et son prénom) est le plus jeune 
+-- utilisateur de la base ?<br><br>
+SELECT Playlist.Utilisateurs.Date FROM Contenu 
+ORDER BY Playlist.Utilisateurs.Date LIMIT 1
 
--- h. Dans combien de listes de musiques apparait chaque musique (en donnant le titre) ?<br><br>
+-- h. Dans combien de listes de musiques apparait chaque musique 
+-- (en donnant le titre) ?<br><br>
+SELECT titre, COUNT(Playlist) FROM Musique
+GROUP BY titre
 
--- i. Dans combien de listes de musiques apparaît chaque artiste, en donnant le nom d'artiste, et en indiquant zéro, quand l'artiste n'apparait dans aucune liste de musiques ?<br><br>
+-- i. Dans combien de listes de musiques apparaît chaque artiste, 
+-- en donnant le nom d'artiste, et en indiquant zéro, 
+-- quand l'artiste n'apparait dans aucune liste de musiques ?<br><br>
+SELECT Musique.Artiste.NomArtiste, COALESCE(COUNT(
+    SELECT DISTINCT Playlist
+),0)
+GROUP BY Musique.Artiste.NomArtiste
