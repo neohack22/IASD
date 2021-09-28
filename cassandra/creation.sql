@@ -11,25 +11,34 @@ CREATE KEYSPACE IF NOT EXISTS GestionMusique
 WITH REPLICATION = { 
     'class' : 'SimpleStrategy', 'replication_factor': 3};
 
-create type Utilisateurs (
-    UID text, nom text, prenom text, dateNaissance int);
+create type GestionMusique.Utilisateurs (
+    UID text, nom text, prenom text, dateNaissance date);
 
-create type Artiste (AID text, nomArtiste text);
+create type GestionMusique.Artiste (AID text, nomArtiste text);
 
-create type Musique (MID text, titre text, AID set< frozen<Artiste>>);
+create type GestionMusique.Musique (
+    MID text, titre text, AID set< frozen<Artiste>>
+);
 
-create type Playlist (PID text, nom text, UID set< frozen<Utilisateurs>>);
+create type GestionMusique.Playlist (
+    PID text, nom text, UID set< frozen<Utilisateurs>>
+);
 
-create type Contenu (
+create type GestionMusique.Contenu (
     PID set< frozen<Playlist>>, MID set< frozen<Musique>>
 );
 
-CREATE TABLE Recommandation (
+CREATE TABLE GestionMusique.Recommandation (
     UID set< frozen<Utilisateurs>>, MID set< frozen<Musique>>, 
     primary key(UID, MID)
 );
 
-CREATE TABLE Musique (
-    MID text, titre text, AID set< frozen<Artiste>, PID list frozen<Contenu>, 
-    primary key(MID)
+CREATE TABLE GestionMusique.Musique (
+    MID text, titre text, AID set< frozen<Artiste>, 
+    PID list frozen<Contenu>, primary key(MID)
 );
+
+CREATE TABLE GestionMusique.Utilisateurs (
+    UID text, nom text, prenom text, dateNaissance date, primary key(
+        UID
+    ));
