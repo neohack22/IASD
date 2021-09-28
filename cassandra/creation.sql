@@ -11,6 +11,8 @@ CREATE KEYSPACE IF NOT EXISTS GestionMusique
 WITH REPLICATION = { 
     'class' : 'SimpleStrategy', 'replication_factor': 3};
 
+USE GestionMusique;    
+
 create type GestionMusique.Utilisateurs (
     UID text, nom text, prenom text, dateNaissance date);
 
@@ -30,7 +32,7 @@ create type GestionMusique.Contenu (
 
 CREATE TABLE GestionMusique.Recommandation (
     UID set< frozen<Utilisateurs>>, MID set< frozen<Musique>>, 
-    primary key(UID, MID)
+    primary key((UID), (MID))
 );
 
 CREATE TABLE GestionMusique.Musique (
