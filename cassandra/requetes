@@ -1,15 +1,16 @@
 -- a. Qui (en donnant son nom et son prénom) a une musique d’un artiste 
 -- nommé x (ex. 'Pomme') dans sa liste de musiques ?<br><br>
 
-SELECT nom, prenom FROM GestionMusique.Utilisateurs
-WHERE nomartiste= 'x' ALLOW FILTERING;
+SELECT nom, prenom FROM GestionMusique.contenu
+WHERE PID.MID.Artiste.nomartiste= 'x' ALLOW FILTERING;
 
 -- b. Qui (en donnant son nom et son prénom) a une musique de d’un 
 -- artiste nommé x (ex. ‘Queen’) OU d’un artiste nommé y (ex. ‘Pomme’)
 -- dans sa liste de musiques ?<br><br>
 
 SELECT DISTINCT PID.UID.nom, PID.UID.prenom FROM contenu
-WHERE PID.MID.Artiste.NomArtiste IN ('x', 'y') ALLOW FILTERING;
+WHERE PID.MID.Artiste.NomArtiste 
+IN ('x', 'y') ALLOW FILTERING;
 
 -- c. Qui (en donnant son nom et son prénom) a une musique d’un artiste 
 -- nommé x (ex. ‘Queen’) ET d’un artiste nommé y (ex. ‘Pomme’) dans sa 

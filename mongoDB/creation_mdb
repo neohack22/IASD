@@ -1,0 +1,5 @@
+USE Gestion
+
+db.createCollection("Musique")
+
+db.Musique.insert({"MID":2, "titre":"Les oiseaux"})
