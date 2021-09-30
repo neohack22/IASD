@@ -67,4 +67,80 @@ db.createCollection("Musique",
     }
 }}})
 
+
+db.createCollection("Contenu", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["Playlist", "Musique"],
+            properties: {
+                Playlist: {
+                    bsonType: "object",
+                    required: ["PID"],
+                    properties: {
+                        "PID": {
+                            bsonType: "int",
+                            description: "doit etre un integer et est requis"
+                        },
+                        "nom": {
+                            bsonType: "string",
+                            description: "doit etre un string si le champs existe"
+                        },
+                        "Utilisateurs": {
+                            bsonType: "object",
+                            required: ["UID"],
+                            properties: {
+                                "UID": {
+                                    bsonType: "int",
+                                    description: "doit etre un integer et le champs est requis"
+                                },
+                                "Nom": {
+                                    bsonType: "string",
+                                    description: "doit etre une chaine de caractère si le champs existe"
+                                },
+                                "Prenom": {
+                                    bsonType: "string",
+                                    description: "doit etre une chaine de caractere si le champs existe"
+                                },
+                                "Date": {
+                                    bsonType: "date",
+                                    description: "doit etre une date si le champs existe"
+                                }
+                            }
+                        }
+                    }
+                },
+                Musique: {
+                    bsonType: "object",
+                    required: ["MID"],
+                    properties: {
+                        MID: {
+                            bsonType: "int",
+                            description: "doit etre un entier et est requis"
+                        },
+                        Titre: {
+                            bsonType: "string",
+                            description: "doit etre une chaine de caractere si le champs existe"
+                        },
+                        Artiste : {
+                            bsonType: "object",
+                            required: ["AID"],
+                            properties: {
+                                AID: {
+                                    bsonType: "int",
+                                    description: "doit etre un entier et est requis"
+                                },
+                                NomArtiste: {
+                                    bsonType: "string",
+                                    description: "doit etre une chaine de caractere si le champs existe"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+})
+
 db.Musique.insert({"MID":2, "titre":"Les oiseaux"})
