@@ -1,0 +1,99 @@
+---
+title: "Utilisez les vecteurs"
+output: html_notebook
+---
+
+
+# Les vecteurs numériques
+
+```{r}
+1:6
+```
+
+```{r}
+seq(1,6,by=0.5)
+```
+
+```{r}
+seq(1, 6,length=5)
+```
+
+```{r}
+x <- c(1, 4, 10) # vecteur de numériques à 3 éléments
+x
+```
+
+```{r}
+y <- seq(1,10,by=2) # vecteur à 7 éléments
+y
+```
+
+```{r}
+z <- c(x,y)
+z
+```
+
+```{r}
+rep(1,4)
+```
+
+```{r}
+rep(c(1,2),each=3)
+```
+
+# Les vecteurs de caractères
+
+```{r}
+x <- c("bonjour","hello","hej")
+x
+```
+
+```{r}
+x <- rep(c("rouge","jaune","bleu"),times=2)
+x
+```
+
+```{r}
+rep(c("rouge","jaune","bleu"),each=2)
+```
+
+```{r}
+rep(c("rouge","jaune","bleu"),times=c(1,4,2))
+```
+
+# Création par concaténation
+
+```{r}
+nom <- paste(rep("ind",10),1:10,sep=".")
+nom
+```
+
+```{r}
+paste(c("X","Y"),1:5,sep=".",collapse="+")
+```
+
+```{r}
+substr("freerider",5,9)
+```
+
+# Vecteurs logiques
+
+```{r}
+1>0
+```
+
+```{r}
+x <- c(-1,0,2)
+test <- x>1
+(1+x^2)*(x>1)
+```
+
+```{r}
+all(x>1)
+```
+
+```{r}
+any(x>1)
+```
+
+https://openclassrooms.com/fr/courses/4525256-initiez-vous-au-langage-r-pour-analyser-vos-donnees/6250872-utilisez-les-vecteurs
