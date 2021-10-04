@@ -35,8 +35,8 @@ CREATE TABLE GestionMusique.Recommandation (
 );
 
 CREATE TABLE GestionMusique.Musique (
-    MID text, titre text, AID set< frozen<Artiste>, 
-    PID list frozen<Contenu>, primary key(MID)
+    id UUID PRIMARY KEY, MID text, titre text, AID set< frozen<Artiste>>, 
+    PID list <frozen<Contenu>>
 );
 
 CREATE TABLE GestionMusique.Utilisateurs (
