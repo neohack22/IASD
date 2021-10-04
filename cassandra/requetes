@@ -1,8 +1,9 @@
 -- a. Qui (en donnant son nom et son prénom) a une musique d’un artiste 
 -- nommé x (ex. 'Pomme') dans sa liste de musiques ?<br><br>
 
-SELECT nom, prenom FROM GestionMusique.contenu
-WHERE PID.MID.Artiste.nomartiste= 'x' ALLOW FILTERING;
+SELECT playlist.pid.utilisateurs.nom, playlist.pid.utilisateurs.prenom 
+FROM Musique
+WHERE Artiste.nomartiste= "x" ALLOW FILTERING;
 
 -- b. Qui (en donnant son nom et son prénom) a une musique de d’un 
 -- artiste nommé x (ex. ‘Queen’) OU d’un artiste nommé y (ex. ‘Pomme’)
@@ -24,6 +25,7 @@ AND PID.MID.Artiste.NomArtiste =  'y' ALLOW FILTERING;
 -- listes de musiques différentes ?<br><br>
 SELECT titre FROM musique
 GROUP BY titre WHERE COUNT(playlist) > 2 ALLOW FILTERING
+-- SELECT titre, count(playlist.pid.pid) FROM musique GROUP BY id ALLOW FILTERING; (fonctionne partiellement)
 
 -- e. Quelle musique (en donnant le titre) n'apparait dans aucune liste 
 -- de musiques ?<br><br>
@@ -47,14 +49,11 @@ SELECT Playlist.Utilisateurs.Date FROM Contenu
 ORDER BY Playlist.Utilisateurs.Date LIMIT 1
 
 -- h. Dans combien de listes de musiques apparait chaque musique 
--- (en donnant le titre) ?<br><br>
+-- (en donnant le titre) ?<br><br> (OK)
 SELECT titre, COUNT(Playlist) FROM Musique
-GROUP BY titre
+GROUP BY id
 
 -- i. Dans combien de listes de musiques apparaît chaque artiste, 
 -- en donnant le nom d'artiste, et en indiquant zéro, 
--- quand l'artiste n'apparait dans aucune liste de musiques ?<br><br>
-SELECT Musique.Artiste.NomArtiste, COALESCE(COUNT(
-    SELECT DISTINCT Playlist
-),0)
-GROUP BY Musique.Artiste.NomArtiste
+-- quand l'artiste n'apparait dans aucune liste de musiques ?<br><br> (OK)
+SELECT Artiste.NomArtiste, COUNT(     Playlist ) FROM Musique GROUP BY id ;

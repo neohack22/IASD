@@ -78,69 +78,61 @@ INSERT INTO Contenu JSON ' {
 
             
 INSERT INTO Musique JSON ' {
+    "id":"50554d6e-29bb-11e5-b345-feff819cdc9e", 
     "MID":1, "titre":"Ca sent bon", "Artiste":{
-        "AID":3, "NomArtiste":"Jul"}, "Playlist":[{
-            "PID":1, "nom":"MaListe", "Utilisateurs":{
-                "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
-                "Date":"1998-01-25"}
-        }]}';
+        "AID":3, "NomArtiste":"Jul"}, "Playlist":{
+            "PID":{
+                "PID":1, "nom":"MaListe", "Utilisateurs":{
+                    "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
+                    "dateNaissance":"1998-01-25"
+                }
+            }
+        }}';
         
             
 INSERT INTO Musique JSON ' {
+    "id":"50554d6e-29bb-11e5-b345-feff819cdc9f", 
     "MID":2, "titre":"Les oiseaux", "Artiste":{
-        "AID":2, "NomArtiste":"Pomme"}, "Playlist":[{
-            "PID":1, "nom":"MaListe", "Utilisateurs":{
-                "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
-                "Date":"1998-01-25"}
-        }]}';
+        "AID":2, "NomArtiste":"Pomme"}, "Playlist":{
+            "PID":{
+                "PID":1, "nom":"MaListe", "Utilisateurs":{
+                    "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
+                    "dateNaissance":"1998-01-25"}
+            }
+            
+        }}';
 
             
 INSERT INTO Musique JSON ' {
+    "id":"01234567-0123-0123-0123-0123456789ab", 
     "MID":3, "titre":"Bohemian Rhapsody", "Artiste":{
-        "AID":1, "NomArtiste":"Queen"}, "Playlist":[{
-            "PID":1, "nom":"MaListe", "Utilisateurs":{
-                "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
-                "Date":"1998-01-25"}}, {
-                    "PID":2, "nom":"MaListe", "Utilisateurs":{
-                        "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
-                        "Date":"1991-12-04"}
-                }]
+        "AID":1, "NomArtiste":"Queen"}, "Playlist":{
+            "PID":{
+                "PID":1, "nom":"MaListe", "Utilisateurs":{
+                    "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
+                    "dateNaissance":"1998-01-25"}
+            }, "PID":{
+                "PID":2, "nom":"MaListe", "Utilisateurs":{
+                    "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
+                    "dateNaissance":"1991-12-04"}}
+                }
         }';
 
             
 INSERT INTO Musique JSON ' {
+    "id":"01234567-0123-0123-0123-0123456789ac", 
     "MID":4, "titre":"Somebody to love", "Artiste":{
-        "AID":1, "NomArtiste":"Queen"}, "Playlist":[{
-            "PID":2, "nom":"MaListe", "Utilisateurs":{
-                "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
-                "Date":"1991-12-04"}
-        }]}';
+        "AID":1, "NomArtiste":"Queen"}, "Playlist":{
+            "PID":{
+                "PID":2, "nom":"MaListe", "Utilisateurs":{
+                    "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
+                    "dateNaissance":"1991-12-04"}
+            }
+            
+        }}';
 
             
 INSERT INTO Musique JSON ' {
+    "id":"01234567-0123-0123-0123-0123456789ad", 
     "MID":5, "titre":"Rehab", "Artiste":{
-        "AID":4, "NomArtiste":"Amy Winehouse"}}
-
-INSERT INTO Musique(Titre,AID) VALUES('Ca sent bon',3);
-INSERT INTO Musique(Titre,AID) VALUES('Les oiseaux',2);
-INSERT INTO Musique(Titre,AID) VALUES('Bohemian Rhapsody',1);
-INSERT INTO Musique(Titre,AID) VALUES('Somebody to love',1);
-INSERT INTO Musique(Titre,AID) VALUES('Rehab',4);
-
-
-INSERT INTO Utilisateur(Nom,Prenom,DateNaissance) VALUES
-('COMPUTING','Claude','12/04/1991');
-INSERT INTO Utilisateur(Nom,Prenom,DateNaissance) VALUES
-('ZARELA','Maude','01/25/1998');
-INSERT INTO Artiste(NomArtiste) VALUES ('Queen');
-INSERT INTO Artiste(NomArtiste) VALUES ('Pomme');
-INSERT INTO Artiste(NomArtiste) VALUES ('Jul');
-INSERT INTO Artiste(NomArtiste) VALUES ('Amy Winehouse');
-INSERT INTO Musique(Titre,AID) VALUES('Ca sent bon',3);
-INSERT INTO Musique(Titre,AID) VALUES('Les oiseaux',2);
-INSERT INTO Musique(Titre,AID) VALUES('Bohemian Rhapsody',1);
-INSERT INTO Musique(Titre,AID) VALUES('Somebody to love',1);
-INSERT INTO Musique(Titre,AID) VALUES('Rehab',4);
-INSERT INTO Playlist(NOM,UID) VALUES('MaListe',2);
-INSERT INTO Playlist(NOM,UID) VALUES('MaListe',1);
-INSERT INTO Contenu(PID, MID) VALUES (1,1),(1,2),(1,3),(2,3),(2,4);
+        "AID":4, "NomArtiste":"Amy Winehouse"}}';
