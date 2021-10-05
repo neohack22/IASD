@@ -1,0 +1,42 @@
+---
+title: "Opérez une sélection dans un dataframe"
+output: html_notebook
+---
+
+```{r}
+x <- c("A","B","C",rep("D",3))
+y <- 1:6
+z <- c(seq(10,45,length=5),-10)
+mondf <- data.frame(x,y,z)
+mondf
+```
+
+# Sélection par position
+
+```{r}
+mondf[1:4,2:3]
+```
+
+```{r}
+mondf$z
+
+mondf["z"]
+```
+
+```{r}
+mondf$x[2:4]
+```
+
+# Sélection par condition
+
+```{r}
+mondf[mondf$y>4,]
+
+mondf[(mondf$y>4)|(mondf$z>17),]
+```
+
+```{r}
+mondf[mondf$y>4,1:2] # équivalent à
+mondf[mondf$y>4,c('x','y')]
+```
+
