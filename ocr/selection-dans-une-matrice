@@ -1,0 +1,47 @@
+---
+title: "Opérez une sélection dans une matrice"
+output: html_notebook
+---
+
+```{r}
+m[i,j]
+```
+
+# Sélection par indice
+
+```{r}
+m[i,]
+```
+
+```{r}
+m[i,,drop=F]
+```
+
+```{r}
+m[,c(2,2,2)]
+```
+
+```{r}
+m[-1,] # matrice m sans sa première ligne
+m[1:2,-1] # 2 premières lignes de m privée de sa 1ère colonne
+```
+
+# Sélection par condition
+
+```{r}
+X <- matrix(1:12,nrow = 3,ncol = 4)
+X
+```
+
+```{r}
+X[,X[1,]>2]
+```
+
+```{r}
+X[X>2]
+```
+
+```{r}
+X[X<5] <- NA
+```
+
