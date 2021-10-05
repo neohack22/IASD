@@ -1,0 +1,38 @@
+---
+title: "Familiarisez-vous avec la sélection d'éléments"
+output: html_notebook
+---
+
+# Principes de sélection
+
+## La sélection par condition
+
+```{r}
+2 == 2
+2 == 3
+4 != 4
+4!= 5
+1 < 2
+1 < 1
+1 <= 1
+3 > 4
+5 > 4
+5 >= 4
+```
+
+```{r}
+x <- -2:5
+x > 0
+```
+
+```{r}
+TRUE & TRUE
+TRUE & FALSE
+FALSE & FALSE
+TRUE | FALSE
+TRUE | TRUE
+FALSE | FALSE
+!TRUE
+!FALSE
+```
+
