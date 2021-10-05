@@ -1,0 +1,102 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Création d’une matrice
+
+```{r}
+x <- matrix(c(1:6),nrow=2,ncol=3,byrow = TRUE)
+x
+```
+
+```{r}
+y <- matrix(1:2,ncol=1)
+y
+```
+
+```{r}
+z <- matrix(3:1,ncol=3)
+z
+```
+
+```{r}
+m <- matrix(1:4,nrow=3,ncol = 3)
+m
+```
+
+```{r}
+un <- matrix(1,nrow = 2,ncol = 4)
+un
+```
+
+```{r}
+x <- seq(1,10,by=2)
+x
+```
+
+```{r}
+as.matrix(x)
+```
+
+```{r}
+matrix(c("A","B","C","A"),ncol = 2)
+```
+
+# Opérations entre matrices
+
+```{r}
+m <- matrix(1:4,ncol = 2)
+m
+```
+
+```{r}
+n <- matrix(3:6,ncol = 2,byrow = T)
+n
+```
+
+```{r}
+m+n
+```
+
+```{r}
+m*n # produit élément par élément
+```
+
+```{r}
+sin(m) # sinus élément par élément
+exp(m) # exponentielle élément par élément
+m^4 # puissance quatrième élément par élément
+```
+
+# Autres fonctions utiles
+
+```{r}
+X <- matrix(1:6,ncol = 3)
+X
+```
+
+```{r}
+ncol(X)
+```
+
+```{r}
+nrow(X)
+```
+
+```{r}
+dim(X)
+```
+
+```{r}
+cbind(c(1,2),c(3,4))
+```
+
+```{r}
+apply(X, MARGIN =2, sum) # sommes par colonne
+```
+
+```{r}
+apply(X, 1, mean) # moyennes par ligne
+```
+
