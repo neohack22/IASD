@@ -1,0 +1,45 @@
+---
+title: "Opérez une sélection dans une liste"
+output: html_notebook
+---
+
+# Sélection par position
+
+```{r}
+x <- c("a","a","b","c")
+X <- matrix(1:8,ncol = 4)
+y <- c(T,T,T,F,F)
+z <- matrix(c("A","B","C","D"),ncol = 2)
+
+maliste <- list(comp1=x,comp2=X,comp3=y,element4=z)
+maliste
+```
+
+```{r}
+maliste[2] # retourne une liste
+
+length((maliste[2]))
+
+maliste[[2]] # extrait le second élément de la liste
+
+length(maliste[[2]])
+```
+
+# Sélection par nom
+
+```{r}
+maliste["comp2"]
+
+maliste[["comp2"]]
+
+maliste$comp2
+```
+
+```{r}
+maliste[c(1,3)]
+```
+
+```{r}
+maliste
+```
+
