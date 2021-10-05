@@ -1,0 +1,35 @@
+---
+title: "Utilisez les dataframes"
+output: html_notebook
+---
+
+# Création de dataframe
+
+```{r}
+x <- c("A","B","C","A")
+y <- 1:4
+```
+
+```{r}
+mondf <- data.frame(x,y)
+mondf
+```
+
+```{r}
+length(mondf)
+```
+
+```{r}
+attributes(mondf)
+```
+
+# Visualisation d’un dataframe
+
+```{r}
+str(mondf)
+```
+
+```{r}
+View(mondf)
+```
+
