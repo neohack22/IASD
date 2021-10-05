@@ -1,0 +1,63 @@
+---
+title: "Utilisez les listes"
+output: html_notebook
+---
+
+# Création de listes
+
+```{r}
+maliste <- list(c("A","B","C","A"),matrix(1:4,2,2))
+maliste
+```
+
+```{r}
+length(maliste)
+```
+
+```{r}
+mode(maliste)
+```
+
+```{r}
+is.list(maliste)
+```
+
+```{r}
+names(maliste) # pas de nom actuellement, la fonction retourne un NULL
+```
+
+```{r}
+names(maliste) <- c("vec","mat")
+names(maliste)
+```
+
+```{r}
+li <- list()
+li
+```
+
+```{r}
+li[[1]] <- 1:4
+li
+```
+
+```{r}
+li$nouv <- matrix(1:4,nrow=2)
+li
+```
+
+```{r}
+li$nouv <- matrix(1:4,nrow = 2)
+li
+```
+
+```{r}
+names(li)
+```
+
+# Fonctions utiles applicables sur des listes
+
+```{r}
+
+```
+
