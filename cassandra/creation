@@ -14,32 +14,36 @@ WITH REPLICATION = {
 USE GestionMusique;    
 
 create type GestionMusique.Utilisateurs (
-    UID text, nom text, prenom text, dateNaissance date);
+    UID  int, nom text, prenom text, dateNaissance date);
 
-create type GestionMusique.Artiste (AID text, nomArtiste text);
+create type GestionMusique.Artiste (AID int, nomArtiste text);
 
 create type GestionMusique.Musique (
-    MID text, titre text, AID set< frozen<Artiste>>
+    MID  int, titre text, Artiste frozen<Artiste>
 );
 
 create type GestionMusique.Playlist (
-    PID text, nom text, UID set< frozen<Utilisateurs>>
+    PID  int, nom text, Utilisateurs frozen<Utilisateurs>
 );
 
 create type GestionMusique.Contenu (
-    PID set< frozen<Playlist>>, MID set< frozen<Musique>>
+    PID frozen<Playlist>, MID frozen<Musique>
 );
 
 CREATE TABLE GestionMusique.Recommandation (
-    id UUID PRIMARY KEY, UID set< frozen<Utilisateurs>>, MID set< frozen<Musique>>
+    id UUID PRIMARY KEY, UID frozen<Utilisateurs>, Musique frozen<Musique>
 );
 
 CREATE TABLE GestionMusique.Musique (
-    id UUID PRIMARY KEY, MID text, titre text, AID set< frozen<Artiste>>, 
-    PID list <frozen<Contenu>>
+    id UUID PRIMARY KEY, MID int, titre text, Artiste frozen<Artiste>, 
+    Playlist frozen<Contenu>
 );
 
 CREATE TABLE GestionMusique.Utilisateurs (
-    UID text, nom text, prenom text, dateNaissance date, primary key(
+    UID int, nom text, prenom text, dateNaissance date, primary key(
         UID
     ));
+
+CREATE TABLE GestionMusique.Contenu (
+    id UUID PRIMARY KEY, Playlist frozen<Playlist>, Musique frozen<Musique>
+);
