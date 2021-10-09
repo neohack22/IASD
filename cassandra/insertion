@@ -25,6 +25,26 @@ INSERT INTO Playlist(NOM,UID) VALUES('MaListe',2);
 INSERT INTO Playlist(NOM,UID) VALUES('MaListe',1);
 INSERT INTO Contenu(PID, MID) VALUES (1,1),(1,2),(1,3),(2,3),(2,4);
 
+INSERT INTO Utilisateurs JSON ' {
+    "UID":1, "nom": "Computing", "prenom":"Claude", 
+    "dateNaissance":"12/04/1991", "AID":3, "nom":"Jul"
+}';
+
+INSERT INTO utilisateurs JSON ' {
+    "UID":1, "nom": "Computing", "prenom":"Claude", 
+    "dateNaissance":"12/04/1991", "AID":2, "nom":"Pomme"
+}';
+
+INSERT INTO utilisateurs JSON ' {
+    "UID":1, "nom": "Computing", "prenom":"Claude", 
+    "dateNaissance":"12/04/1991", "AID":1, "nom":"Queen"
+}';
+
+INSERT INTO utilisateurs JSON ' {
+    "UID":2, "nom": "ZARELA", "prenom":"Maude", 
+    "dateNaissance":"01/25/1998", "AID":1, "nom":"Queen"
+}';
+
 INSERT INTO Contenu JSON ' {
     "PID":1, "UID":2, "Nom":"ZARELA", "Prenom":"Maude", "MID":1, 
     "Titre":"Ca sent bon", "AID":3, "NomArtiste":"Jul"}}
