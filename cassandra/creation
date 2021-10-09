@@ -36,16 +36,16 @@ CREATE TABLE GestionMusique.Recommandation (
 
 CREATE TABLE GestionMusique.Musique (
     id UUID, MID int, titre text, Artiste frozen<Artiste>, 
-    Playlist frozen<Contenu>, PRIMARY KEY(id, Artiste)
+    Playlist frozen<Contenu>, PRIMARY KEY(id, Artiste, playlist)
 );
 
 CREATE TABLE GestionMusique.Utilisateurs (
     UID int, nom text, prenom text, dateNaissance date, primary key(
-        UID
+        UID, dateNaissance
     ));
 
 CREATE TABLE GestionMusique.Contenu (
-    id UUID PRIMARY KEY, PID  int, UID int, nom text, prenom text, 
-    MID  int, titre text, AID int, nomArtiste text
+    PID int, UID int, nom text, prenom text, MID int, titre text, 
+    AID int, nomArtiste text, PRIMARY KEY(PID, nomArtiste)
 );
 
