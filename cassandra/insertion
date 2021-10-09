@@ -27,22 +27,22 @@ INSERT INTO Contenu(PID, MID) VALUES (1,1),(1,2),(1,3),(2,3),(2,4);
 
 INSERT INTO Utilisateurs JSON ' {
     "UID":1, "nom": "Computing", "prenom":"Claude", 
-    "dateNaissance":"12/04/1991", "AID":3, "nom":"Jul"
+    "dateNaissance":"12/04/1991", "AID":3, "nomArtiste":"Jul"
 }';
 
 INSERT INTO utilisateurs JSON ' {
     "UID":1, "nom": "Computing", "prenom":"Claude", 
-    "dateNaissance":"12/04/1991", "AID":2, "nom":"Pomme"
+    "dateNaissance":"12/04/1991", "AID":2, "nomArtiste":"Pomme"
 }';
 
 INSERT INTO utilisateurs JSON ' {
     "UID":1, "nom": "Computing", "prenom":"Claude", 
-    "dateNaissance":"12/04/1991", "AID":1, "nom":"Queen"
+    "dateNaissance":"12/04/1991", "AID":1, "nomArtiste":"Queen"
 }';
 
-INSERT INTO utilisateurs JSON ' {
+INSERT INTO Utilisateurs JSON ' {
     "UID":2, "nom": "ZARELA", "prenom":"Maude", 
-    "dateNaissance":"01/25/1998", "AID":1, "nom":"Queen"
+    "dateNaissance":"01/25/1998", "AID":1, "nomArtiste":"Queen"
 }';
 
 INSERT INTO Contenu JSON ' {
@@ -80,53 +80,26 @@ INSERT INTO Contenu JSON ' {
 INSERT INTO Musique JSON ' {
     "id":"50554d6e-29bb-11e5-b345-feff819cdc9e", 
     "MID":1, "titre":"Ca sent bon", "Artiste":{
-        "AID":3, "NomArtiste":"Jul"}, "Playlist":{
-            "PID":{
-                "PID":1, "nom":"MaListe", "Utilisateurs":{
-                    "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
-                    "dateNaissance":"1998-01-25"
-                }
-            }
-        }}';
+        "AID":3, "NomArtiste":"Jul"}, "Playlist":3}';
         
             
 INSERT INTO Musique JSON ' {
     "id":"50554d6e-29bb-11e5-b345-feff819cdc9f", 
     "MID":2, "titre":"Les oiseaux", "Artiste":{
-        "AID":2, "NomArtiste":"Pomme"}, "Playlist":{
-            "PID":{
-                "PID":1, "nom":"MaListe", "Utilisateurs":{
-                    "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
-                    "dateNaissance":"1998-01-25"}
-            }
-            
-        }}';
+        "AID":2, "NomArtiste":"Pomme"}, "Playlist":1}';
 
             
 INSERT INTO Musique JSON ' {
     "id":"01234567-0123-0123-0123-0123456789ab", 
     "MID":3, "titre":"Bohemian Rhapsody", "Artiste":{
-        "AID":1, "NomArtiste":"Queen"}, "Playlist":{
-            "PID":{
-                "PID":1, "nom":"MaListe", "Utilisateurs":{
-                    "UID":2, "Nom":"ZARELA", "Prenom":"Maude", 
-                    "dateNaissance":"1998-01-25"}
-            }, "PID":{
-                "PID":2, "nom":"MaListe", "Utilisateurs":{
-                    "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
-                    "dateNaissance":"1991-12-04"}}
-                }
+        "AID":1, "NomArtiste":"Queen"}, "Playlist":2
         }';
 
             
 INSERT INTO Musique JSON ' {
     "id":"01234567-0123-0123-0123-0123456789ac", 
     "MID":4, "titre":"Somebody to love", "Artiste":{
-        "AID":1, "NomArtiste":"Queen"}, "Playlist":{
-            "PID":{
-                "PID":2, "nom":"MaListe", "Utilisateurs":{
-                    "UID":2, "Nom":"COMPUTING", "Prenom":"Claude", 
-                    "dateNaissance":"1991-12-04"}
+        "AID":1, "NomArtiste":"Queen"}, "Playlist":1
             }
             
         }}';
@@ -135,4 +108,4 @@ INSERT INTO Musique JSON ' {
 INSERT INTO Musique JSON ' {
     "id":"01234567-0123-0123-0123-0123456789ad", 
     "MID":5, "titre":"Rehab", "Artiste":{
-        "AID":4, "NomArtiste":"Amy Winehouse"}}';
+        "AID":4, "NomArtiste":"Amy Winehouse"}, "playlist":0}';
