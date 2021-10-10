@@ -8,10 +8,10 @@ WHERE NomArtiste= 'Pomme' ALLOW FILTERING;
 -- artiste nommé x (ex. ‘Queen’) OU d’un artiste nommé y (ex. ‘Pomme’)
 -- dans sa liste de musiques ?<br><br> ok
 
-SELECT nom, prenom FROM contenu 
+SELECT nom, prenom FROM Contenu 
 WHERE NomArtiste 
 IN ('Pomme', 'Queen') 
-GROUP BY UID ALLOW FILTERING;
+GROUP BY Musique_ID, Utilisateur_ID ALLOW FILTERING;
 
 -- c. Qui (en donnant son nom et son prénom) a une musique d’un artiste 
 -- nommé x (ex. ‘Queen’) ET d’un artiste nommé y (ex. ‘Pomme’) dans sa 
@@ -19,7 +19,7 @@ GROUP BY UID ALLOW FILTERING;
 
 SELECT uid, nom, prenom, queen, pomme 
 FROM Artiste 
-WHERE Pomme=1 
+WHERE Pomme=1 -- queen = 1 AND pomme = 1
 GROUP BY UID, queen, pomme ALLOW FILTERING;
 
 -- d. Quelle musique (en donnant son titre) apparait dans au moins 2 
@@ -29,8 +29,8 @@ GROUP BY UID, queen, pomme ALLOW FILTERING;
 -- SELECT titre, count(playlist.pid.pid) FROM musique GROUP BY id ALLOW FILTERING; (fonctionne partiellement)
 
 SELECT titre 
-FROM Playlist 
-WHERE playlist_order = 2 ALLOW FILTERING;
+FROM Contenu 
+WHERE frequence >= 2 ALLOW FILTERING;
 
 -- e. Quelle musique (en donnant le titre) n'apparait dans aucune liste 
 -- de musiques ?<br><br> bof
@@ -38,7 +38,8 @@ SELECT titre FROM musique WHERE Playlist = 0 ALLOW FILTERING;
 
 -- f. Quelle musique (en donnant le titre) apparait dans toutes les 
 -- listes de musiques de la base de données ?<br><br>
-SELECT titre FROM musique WHERE count(Playlist) = count(pid) ALLOW FILTERING;
+SELECT titre FROM Contenu 
+WHERE count(fréquence) = count(Playlist_ID) ALLOW FILTERING;
 
 -- g. Qui (en donnant son nom et son prénom) est le plus jeune 
 -- utilisateur de la base ?<br><br>

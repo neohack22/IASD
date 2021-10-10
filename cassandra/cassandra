@@ -13,61 +13,15 @@ WITH REPLICATION = {
 
 USE GestionMusique;    
 
---create type GestionMusique.Utilisateurs (
-  --  UID  int, 
-    --nom text, 
-    --prenom text, 
-    --dateNaissance date
---)
-
-
---create type GestionMusique.Artiste (
-    --AID int, 
-    --nomArtiste text
---);
-
---create type GestionMusique.Musique (
-  --  MID  int, 
-    --titre text, 
-    --Artiste frozen<Artiste>
---);
-
---create type GestionMusique.Playlist (
-  --  PID  int, 
-    --nom text, 
-    --Utilisateurs frozen<Utilisateurs>
---);
-
---create type GestionMusique.Contenu (
-  --  PID frozen<Playlist>, 
-    --MID frozen<Musique>
---);
-
--- CREATE TABLE GestionMusique.Recommandation (
---     id UUID PRIMARY KEY, 
---     UID frozen<Utilisateurs>, 
---     Musique frozen<Musique>
--- );
-
---CREATE TABLE GestionMusique.Musique (
---    id UUID, 
---    MID int, 
---    titre text, 
---    Artiste frozen<Artiste>, 
---    Playlist int, 
---    PRIMARY KEY(mid, playlist, id, Artiste)
---);
 
 CREATE TABLE GestionMusique.Utilisateurs (
     UID int, 
     nom text, 
     prenom text, 
+    sort text,
     dateNaissance date, 
---    AID int, 
---    nomArtiste text, 
-    primary key(dateNaissance, UID)
+    primary key(sort, dateNaissance)
 );
---WITH CLUSTERING ORDER BY (dateNaissance);
 
 CREATE TABLE GestionMusique.Contenu (
     Musique_ID int, 
@@ -78,7 +32,19 @@ CREATE TABLE GestionMusique.Contenu (
     Utilisateur_ID int, 
     nom text, 
     prenom text, 
-    PRIMARY KEY(Musique_ID, Utilisateur_ID, Playlist_ID)
+    PRIMARY KEY(Utilisateur_ID, NomArtiste, Musique_ID)
+);
+
+CREATE TABLE GestionMusique.Musique (
+    Musique_ID int, 
+    titre text, 
+    nomArtiste text, 
+    Playlist_ID int, 
+    frequence int,
+    Utilisateur_ID int, 
+    nom text, 
+    prenom text, 
+    PRIMARY KEY(NomArtiste, Musique_ID)
 );
 
 CREATE TABLE GestionMusique.Artiste (
@@ -92,17 +58,6 @@ CREATE TABLE GestionMusique.Artiste (
     PRIMARY KEY(Utilisateur_ID, Queen, Pomme, JUL, AID)
 );
 
--- create TABLE GestionMusique.Playlist (
---     PID int, MID int, titre text, MaListe_1 int, MaListe_2 int, 
---     PRIMARY KEY(MID, MaListe_1, MaListe_2, PID));
-
---CREATE TABLE Contenu (
-  --PID int, 
-  --MID int, 
-  --titre text, 
-  --playlist_order int,
-  --PRIMARY KEY  (playlist_order, PID)
---);
 
 -- (ii) indiquer à quelles requêtes (
 --    rappelées ci-dessous) votre modèle permet de répondre et donner le 
@@ -139,14 +94,16 @@ INSERT INTO Utilisateurs JSON ' {
     "UID":1, 
     "nom": "Computing", 
     "prenom": "Claude", 
-    "dateNaissance":"1991-12-04"
+    "dateNaissance":"1991-12-04",
+    "sort":"ok"
 }';
 
 INSERT INTO Utilisateurs JSON ' {
     "UID":2, 
     "nom": "ZARELA", 
     "prenom": "Maude", 
-    "dateNaissance":"1998-01-25"
+    "dateNaissance":"1998-01-25",
+    "sort":"ok"
 }';
             
 INSERT INTO Contenu JSON ' {
@@ -204,38 +161,16 @@ INSERT INTO Contenu JSON ' {
     "prenom": "Claude"
 }';       
 
-INSERT INTO Musique JSON ' {
-    "PID":"50554d6e-29bb-11e5-b345-feff819cdc9f", 
-    "MID":2, "titre":"Les oiseaux", "Artiste":{
-        "AID":2, "NomArtiste":"Pomme"}, "Playlist":1}';
-
-            
-INSERT INTO Musique JSON ' {
-    "id":"01234567-0123-0123-0123-0123456789ab", 
-    "MID":3, "titre":"Bohemian Rhapsody", "Artiste":{
-        "AID":1, "NomArtiste":"Queen"}, "Playlist":2
-        }';
-
-            
-INSERT INTO Musique JSON ' {
-    "id":"01234567-0123-0123-0123-0123456789ac", 
-    "MID":4, "titre":"Somebody to love", "Artiste":{
-        "AID":1, "NomArtiste":"Queen"}, "Playlist":1
-            }
-            
-        }}';
-
-INSERT INTO Musique JSON ' {
-    "id":"01234567-0123-0123-0123-0123456789aa", 
-    "MID":3, "titre":"Bohemian Rhapsody", "Artiste":{
-        "AID":1, "NomArtiste":"Queen"}, "Playlist":1
-        }';
-            
-INSERT INTO Musique JSON ' {
-    "id":"01234567-0123-0123-0123-0123456789ad", 
-    "MID":5, "titre":"Rehab", "Artiste":{
-        "AID":4, "NomArtiste":"Amy Winehouse"}, "playlist":0}';
-
+INSERT INTO Contenu JSON ' {
+    "Musique_ID":5, 
+    "titre": "Rehab", 
+    "nomArtiste": "Amy Winehouse", 
+    "Playlist_ID":0,
+    "frequence": 0, 
+    "Utilisateur_ID":0, 
+    "nom": "",
+    "prenom": ""
+}';
 
 
 INSERT INTO Artiste JSON ' {
@@ -288,37 +223,131 @@ INSERT INTO Artiste JSON ' {
     "prenom":"Maude"
 }        ';
 
-INSERT INTO Playlist JSON ' {
-    "PID":1, 
-    "MID":1, 
-    "titre":"Ca sent bon", 
-    "playlist_order":1
-}        ';
+            
+INSERT INTO Musique JSON ' {
+    "Musique_ID":1, 
+    "titre": "Ca sent bon", 
+    "nomArtiste": "Jul",
+    "Playlist_ID":1,
+    "frequence": 1,
+    "Utilisateur_ID":2, 
+    "nom": "ZARELA",
+    "prenom": "Maude"
+}';
 
-INSERT INTO Contenu JSON ' {
-    "PID":1, 
-    "MID":2, 
-    "titre":"Les oiseaux", 
-    "playlist_order":1
-}        ';
+INSERT INTO Musique JSON ' {
+    "Musique_ID":2, 
+    "titre": "Les oiseaux", 
+    "nomArtiste": "Pomme",
+    "Playlist_ID":1,
+    "frequence": 1,
+    "Utilisateur_ID":2, 
+    "nom": "ZARELA",
+    "prenom": "Maude"
+}';        
+            
+INSERT INTO Musique JSON ' {
+    "Musique_ID":3, 
+    "titre": "Bohemian Rhapsody", 
+    "nomArtiste": "Queen",
+    "Playlist_ID":1,
+    "frequence": 1,
+    "Utilisateur_ID":2, 
+    "nom": "ZARELA",
+    "prenom": "Maude"
+}';        
 
-INSERT INTO Contenu JSON ' {
-    "PID":1, 
-    "MID":3, 
-    "titre":"Bohemian Rhapsody", 
-    "playlist_order":1
-}        ';
+INSERT INTO Musique JSON ' {
+    "Musique_ID":3, 
+    "titre": "Bohemian Rhapsody", 
+    "nomArtiste": "Queen",
+    "Playlist_ID":2,
+    "frequence": 2, 
+    "Utilisateur_ID":1, 
+    "nom": "Computing",
+    "prenom": "Claude"
+}';
 
-INSERT INTO Contenu JSON ' {
-    "PID":2, 
-    "MID":3, 
-    "titre":"Bohemian Rhapsody", 
-    "playlist_order":2
-}        ';
+INSERT INTO Musique JSON ' {
+    "Musique_ID":4, 
+    "titre": "Somebody to love", 
+    "nomArtiste": "Queen", 
+    "Playlist_ID":2,
+    "frequence": 1, 
+    "Utilisateur_ID":1, 
+    "nom": "Computing",
+    "prenom": "Claude"
+}';       
 
-INSERT INTO Contenu JSON ' {
-    "PID":2, 
-    "MID":4, 
-    "titre":"Somebody to love", 
-    "playlist_order":1
-}        ';
+INSERT INTO Musique JSON ' {
+    "Musique_ID":5, 
+    "titre": "Rehab", 
+    "nomArtiste": "Amy Winehouse", 
+    "Playlist_ID":0,
+    "frequence": 0, 
+    "Utilisateur_ID":0, 
+    "nom": "",
+    "prenom": ""
+}';
+
+
+
+-- a. Qui (en donnant son nom et son prénom) a une musique d’un artiste 
+-- nommé x (ex. 'Pomme') dans sa liste de musiques ?<br><br> ok
+
+SELECT nom, prenom FROM Contenu 
+WHERE NomArtiste= 'Pomme' ALLOW FILTERING;
+
+-- b. Qui (en donnant son nom et son prénom) a une musique de d’un 
+-- artiste nommé x (ex. ‘Queen’) OU d’un artiste nommé y (ex. ‘Pomme’)
+-- dans sa liste de musiques ?<br><br> ok
+
+SELECT nom, prenom FROM Contenu 
+WHERE NomArtiste 
+IN ('Pomme', 'Queen') 
+GROUP BY Utilisateur_ID ALLOW FILTERING;
+
+-- c. Qui (en donnant son nom et son prénom) a une musique d’un artiste 
+-- nommé x (ex. ‘Queen’) ET d’un artiste nommé y (ex. ‘Pomme’) dans sa 
+-- liste de musiques ?<br><br> ok
+
+SELECT nom, prenom
+FROM Artiste 
+WHERE Pomme=1 -- queen = 1 AND pomme = 1
+GROUP BY Utilisateur_ID, queen, pomme ALLOW FILTERING;
+
+-- d. Quelle musique (en donnant son titre) apparait dans au moins 2 
+-- listes de musiques différentes ?<br><br> bof
+
+-- SELECT titre from musique WHERE Playlist >= 2;
+-- SELECT titre, count(playlist.pid.pid) FROM musique GROUP BY id ALLOW FILTERING; (fonctionne partiellement)
+
+SELECT titre 
+FROM Contenu 
+WHERE frequence >= 2 ALLOW FILTERING;
+
+-- e. Quelle musique (en donnant le titre) n'apparait dans aucune liste 
+-- de musiques ?<br><br> bof
+SELECT titre FROM Contenu WHERE frequence = 0 ALLOW FILTERING;
+
+-- f. Quelle musique (en donnant le titre) apparait dans toutes les 
+-- listes de musiques de la base de données ?<br><br>
+SELECT titre FROM Contenu 
+WHERE frequence = 2 ALLOW FILTERING;
+
+-- g. Qui (en donnant son nom et son prénom) est le plus jeune 
+-- utilisateur de la base ?<br><br>
+SELECT nom, prenom FROM Utilisateurs 
+WHERE sort='ok' 
+AND dateNaissance >= '1900-01-01' 
+ORDER BY dateNaissance ASC LIMIT 1 ALLOW FILTERING;
+
+-- h. Dans combien de listes de musiques apparait chaque musique 
+-- (en donnant le titre) ?<br><br> (OK)
+SELECT titre, COUNT(frequence) FROM Musique
+GROUP BY Musique_ID ALLOW FILTERING;
+
+-- i. Dans combien de listes de musiques apparaît chaque artiste, 
+-- en donnant le nom d'artiste, et en indiquant zéro, 
+-- quand l'artiste n'apparait dans aucune liste de musiques ?<br><br> (OK)
+SELECT NomArtiste, COUNT(     frequence ) FROM Musique GROUP BY NomArtiste ALLOW FILTERING;
