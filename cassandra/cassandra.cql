@@ -1,11 +1,27 @@
+-- b. Modèle colonne en utilisant Cassandra
+
 -- 1 1. Pour chaque modèle ci-dessous, 
 -- vous devrez :
 
--- b. Modèle colonne en utilisant Cassandra
-
 -- (i) Implémenter le modèle et donner les commandes de création du modèle, 
--- en expliquant quelle partie du modèle SQL vous avez choisi 
--- d’implémenter (si vous n’avez choisi d’en implémenter qu’une partie),
+-- en expliquant quelle partie du modèle SQL vous avez choisi d’implémenter
+-- (si vous n’avez choisi d’en implémenter qu’une partie), [...]
+
+
+-- Nous choisi d'implémenter une stratégie de réplication sur 3 noeuds
+-- Nous nous sommes affranchi des contraintes des tables SQL qui ne 
+-- pouvaient être dupliquées sur Cassandra.
+-- Les clés étrangères de SQL ont été remplacées par des entiers faisant référence
+-- aux identifiants des colonnes auxquels ils font référence au sein 
+-- d'autres colonnes pour éventuellement servir à un regroupement.
+-- Nous avons également supprimé la sérialisation des clés primaires pour
+-- en simplifier les tests.
+-- Les collections initiales n'ont été maintenues, dénormalisées et 
+-- organisées que dans le but de répondre aux requêtes spécifiques de 
+-- l'exercice.
+-- La sérialisation des clés primaires a été remplacée par des entiers en 
+-- lieu et place d'éventuels uuid afin de faciliter la vérification des 
+-- requêtes.
 
 CREATE KEYSPACE IF NOT EXISTS GestionMusique
 WITH REPLICATION = { 
@@ -13,6 +29,11 @@ WITH REPLICATION = {
 
 USE GestionMusique;    
 
+
+-- La clé de clustering Utilisateurs.sort permet d'effectuer une restriction 
+-- avant d'ordonner la clé de clustering Utilisateurs.dateNaissance.
+-- Il n'est pas utile de d'intégrer les informations de la clé étrangère
+-- initiale relative à l'identifiant AID de l'artiste.
 
 CREATE TABLE GestionMusique.Utilisateurs (
     UID int, 
@@ -23,6 +44,17 @@ CREATE TABLE GestionMusique.Utilisateurs (
     primary key(sort, dateNaissance)
 );
 
+-- L'identifiant Contenu(PID) de la clé primaire est remplacé par des index
+-- secondaires.
+-- La clé de clustering Contenu.Utilisateur_ID permet de regrouper les 
+-- utilisateurs pour lesquels nos requêtes renvoient des doublons.
+-- Contenu.NomArtiste permet de restreindre la requete.
+-- Il a été ajouté une colonne Contenu.fréquence, initialisée à 0 par 
+-- défaut tant qu'aucune playlist au moment de rensigner une musique.
+-- Dans le cas contraire, elle est incrémentée d'une unité à chaque fois 
+-- que la musique se retrouve dans une playlist pour la première fois (à 
+-- l'aide d'un trigger java ou par l'application métier elle-même).
+
 CREATE TABLE GestionMusique.Contenu (
     Musique_ID int, 
     titre text, 
@@ -32,8 +64,14 @@ CREATE TABLE GestionMusique.Contenu (
     Utilisateur_ID int, 
     nom text, 
     prenom text, 
-    PRIMARY KEY(Utilisateur_ID, NomArtiste, Musique_ID)
+    PRIMARY KEY(Utilisateur_ID, NomArtiste)
 );
+
+
+-- La collection Musique est une copie de la collection Contenu avec comme
+-- seule différence un remplacement de la clé primaire par 
+-- Musique.NomArtiste afin que le regroupement des doublons se fasse par 
+-- cette colonne, tout en permettant de répondre aux mêmes types de requètes.
 
 CREATE TABLE GestionMusique.Musique (
     Musique_ID int, 
@@ -44,8 +82,16 @@ CREATE TABLE GestionMusique.Musique (
     Utilisateur_ID int, 
     nom text, 
     prenom text, 
-    PRIMARY KEY(NomArtiste, Musique_ID)
+    PRIMARY KEY(NomArtiste)
 );
+
+-- Artiste(nomArtiste) est décomposé en différentes colonnes représentant 
+-- chacun des artistes afin de pouvoir y mapper un indicateur de présence 
+-- de l'artiste en question s'il est présent et un 0 sinon.
+-- Cela permet de requeter trier les résultats par artiste(s) présent(s).
+-- La clé primaire composite a été précédé de Artiste.Utilisateur_ID d'une 
+-- part afin de dédoublonner les utilisateurs et d'autre part afin de 
+-- préciser les artistes que l'on va vérifier être présents.
 
 CREATE TABLE GestionMusique.Artiste (
     AID int, 
@@ -59,15 +105,7 @@ CREATE TABLE GestionMusique.Artiste (
 );
 
 
--- (ii) indiquer à quelles requêtes (
---    rappelées ci-dessous) votre modèle permet de répondre et donner le 
--- code de vos requêtes,
-
--- a. Qui (
---    en donnant son nom et son prénom) a une musique d’un artiste nommé 
--- x (ex. 'Pomme') dans sa liste de musiques ?
-
--- Exemple d'insertion
+-- Nous avons maintenu les données de l'Exemple d'insertion SQL ci dessous :
 
 --1 INSERT INTO Utilisateur(Nom,Prenom,DateNaissance) VALUES
 --('COMPUTING','Claude','12/04/1991');
@@ -291,9 +329,13 @@ INSERT INTO Musique JSON ' {
 }';
 
 
+-- (ii) indiquer à quelles requêtes (
+--    rappelées ci-dessous) votre modèle permet de répondre et donner le 
+-- code de vos requêtes,
 
--- a. Qui (en donnant son nom et son prénom) a une musique d’un artiste 
--- nommé x (ex. 'Pomme') dans sa liste de musiques ?<br><br> ok
+-- a. Qui (
+--    en donnant son nom et son prénom) a une musique d’un artiste nommé 
+-- x (ex. 'Pomme') dans sa liste de musiques ?
 
 SELECT nom, prenom FROM Contenu 
 WHERE NomArtiste= 'Pomme' ALLOW FILTERING;
@@ -313,7 +355,7 @@ GROUP BY Utilisateur_ID ALLOW FILTERING;
 
 SELECT nom, prenom
 FROM Artiste 
-WHERE Pomme=1 -- queen = 1 AND pomme = 1
+WHERE Pomme=1
 GROUP BY Utilisateur_ID, queen, pomme ALLOW FILTERING;
 
 -- d. Quelle musique (en donnant son titre) apparait dans au moins 2 
@@ -350,4 +392,5 @@ GROUP BY Musique_ID ALLOW FILTERING;
 -- i. Dans combien de listes de musiques apparaît chaque artiste, 
 -- en donnant le nom d'artiste, et en indiquant zéro, 
 -- quand l'artiste n'apparait dans aucune liste de musiques ?<br><br> (OK)
-SELECT NomArtiste, COUNT(     frequence ) FROM Musique GROUP BY NomArtiste ALLOW FILTERING;
+SELECT NomArtiste, COUNT(frequence) FROM Musique 
+GROUP BY NomArtiste ALLOW FILTERING;
