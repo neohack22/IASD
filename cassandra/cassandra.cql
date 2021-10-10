@@ -374,7 +374,7 @@ SELECT titre FROM Contenu WHERE frequence = 0 ALLOW FILTERING;
 
 -- f. Quelle musique (en donnant le titre) apparait dans toutes les 
 -- listes de musiques de la base de données ?<br><br>
-SELECT titre FROM Contenu 
+SELECT titre FROM Frequence 
 WHERE frequence = 2 ALLOW FILTERING;
 
 -- g. Qui (en donnant son nom et son prénom) est le plus jeune 

@@ -56,4 +56,5 @@ GROUP BY id
 -- i. Dans combien de listes de musiques apparaît chaque artiste, 
 -- en donnant le nom d'artiste, et en indiquant zéro, 
 -- quand l'artiste n'apparait dans aucune liste de musiques ?<br><br> (OK)
-SELECT Artiste.NomArtiste, COUNT(     Playlist ) FROM Musique GROUP BY id ;
+SELECT Artiste.NomArtiste, COUNT(Playlist) FROM Musique 
+GROUP BY id ;

@@ -63,9 +63,9 @@ CREATE TABLE GestionMusique.Utilisateurs (
     nom text, 
     prenom text, 
     dateNaissance date, 
---    AID int, 
+    sort text, 
 --    nomArtiste text, 
-    primary key(dateNaissance, UID)
+    primary key(sort, dateNaissance)
 );
 --WITH CLUSTERING ORDER BY (dateNaissance);
 
@@ -78,7 +78,19 @@ CREATE TABLE GestionMusique.Contenu (
     Utilisateur_ID int, 
     nom text, 
     prenom text, 
-    PRIMARY KEY(Musique_ID, Utilisateur_ID, Playlist_ID)
+    PRIMARY KEY(Utilisateur_ID, NomArtiste, Musique_ID)
+);
+
+CREATE TABLE GestionMusique.Musique (
+    Musique_ID int, 
+    titre text, 
+    nomArtiste text, 
+    Playlist_ID int, 
+    frequence int,
+    Utilisateur_ID int, 
+    nom text, 
+    prenom text, 
+    PRIMARY KEY(NomArtiste, Musique_ID)
 );
 
 CREATE TABLE GestionMusique.Artiste (
@@ -204,6 +216,19 @@ INSERT INTO Contenu JSON ' {
     "prenom": "Claude"
 }';       
 
+INSERT INTO Contenu JSON ' {
+    "Musique_ID":5, 
+    "titre": "Rehab", 
+    "nomArtiste": "Amy Winehouse", 
+    "Playlist_ID":0,
+    "frequence": 0, 
+    "Utilisateur_ID":0, 
+    "nom": "",
+    "prenom": ""
+}';       
+
+
+
 INSERT INTO Musique JSON ' {
     "PID":"50554d6e-29bb-11e5-b345-feff819cdc9f", 
     "MID":2, "titre":"Les oiseaux", "Artiste":{
@@ -322,3 +347,71 @@ INSERT INTO Contenu JSON ' {
     "titre":"Somebody to love", 
     "playlist_order":1
 }        ';
+
+
+            
+INSERT INTO Musique JSON ' {
+    "Musique_ID":1, 
+    "titre": "Ca sent bon", 
+    "nomArtiste": "Jul",
+    "Playlist_ID":1,
+    "frequence": 1,
+    "Utilisateur_ID":2, 
+    "nom": "ZARELA",
+    "prenom": "Maude"
+}';
+
+INSERT INTO Musique JSON ' {
+    "Musique_ID":2, 
+    "titre": "Les oiseaux", 
+    "nomArtiste": "Pomme",
+    "Playlist_ID":1,
+    "frequence": 1,
+    "Utilisateur_ID":2, 
+    "nom": "ZARELA",
+    "prenom": "Maude"
+}';        
+            
+INSERT INTO Musique JSON ' {
+    "Musique_ID":3, 
+    "titre": "Bohemian Rhapsody", 
+    "nomArtiste": "Queen",
+    "Playlist_ID":1,
+    "frequence": 1,
+    "Utilisateur_ID":2, 
+    "nom": "ZARELA",
+    "prenom": "Maude"
+}';        
+
+INSERT INTO Musique JSON ' {
+    "Musique_ID":3, 
+    "titre": "Bohemian Rhapsody", 
+    "nomArtiste": "Queen",
+    "Playlist_ID":2,
+    "frequence": 2, 
+    "Utilisateur_ID":1, 
+    "nom": "Computing",
+    "prenom": "Claude"
+}';
+
+INSERT INTO Musique JSON ' {
+    "Musique_ID":4, 
+    "titre": "Somebody to love", 
+    "nomArtiste": "Queen", 
+    "Playlist_ID":2,
+    "frequence": 1, 
+    "Utilisateur_ID":1, 
+    "nom": "Computing",
+    "prenom": "Claude"
+}';       
+
+INSERT INTO Musique JSON ' {
+    "Musique_ID":5, 
+    "titre": "Rehab", 
+    "nomArtiste": "Amy Winehouse", 
+    "Playlist_ID":0,
+    "frequence": 0, 
+    "Utilisateur_ID":0, 
+    "nom": "",
+    "prenom": ""
+}';       
