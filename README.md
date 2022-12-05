@@ -11,4 +11,5 @@ The balance between these two themes is rare but the good integration of skills 
 Finally, an important part of the repository should also be devoted to the implementation (design and programming) of AI algorithms and their experimental analysis on computer clusters.
 
 This is a work in progress #WIP.<br>
+
 Therefore you can check for other folders in dedicated branches until they get merged.
